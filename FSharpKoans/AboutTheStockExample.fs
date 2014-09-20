@@ -55,8 +55,22 @@ module ``about the stock example`` =
     // tests for yourself along the way. You can also try 
     // using the F# Interactive window to check your progress.
 
+    type Record = {
+        Year:System.String
+        Open: System.Double
+        Close: System.Double
+    }
+
     [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result =  __
+
+        let splitCommas (x:string) = 
+            x.Split([|','|])
+
+        let result =  
+            stockData.Tail
+            |> Seq.map splitCommas
+            |> Seq.map (fun x ->  { Year = x.[0]; Open= System.Double.Parse(x.[1]); Close= System.Double.Parse(x.[4]) } )
+            |> Seq.maxBy (fun x -> abs(x.Open - x.Close))
         
-        AssertEquality "2012-03-13" result
+        AssertEquality "2012-03-13" result.Year

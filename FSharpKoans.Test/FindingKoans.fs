@@ -2,9 +2,7 @@
 
 open FSharpKoans.Core
 open FSharpKoans.Core.KoanContainer
-
 open NUnit.Framework
-
 open System.IO
     
 type TestContainer() =

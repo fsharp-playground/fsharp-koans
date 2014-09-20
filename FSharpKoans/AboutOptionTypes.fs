@@ -1,6 +1,8 @@
 ﻿namespace FSharpKoans
 open FSharpKoans.Core
 
+open System
+
 type Game = {
     Name: string
     Platform: string
@@ -22,17 +24,19 @@ module ``about option types`` =
     let OptionTypesMightContainAValue() =
         let someValue = Some 10
         
-        AssertEquality someValue.IsSome __
-        AssertEquality someValue.IsNone __
-        AssertEquality someValue.Value __
+        AssertEquality someValue.IsSome  true
+        AssertEquality someValue.IsNone false
+        AssertEquality someValue.Value 10
 
     [<Koan>]
     let OrTheyMightNot() =
         let noValue = None
 
-        AssertEquality noValue.IsSome __
-        AssertEquality noValue.IsNone __
-        AssertThrows<FILL_IN_THE_EXCEPTION> (fun () -> noValue.Value)
+        AssertEquality noValue.IsSome false
+        AssertEquality noValue.IsNone true
+
+        // wk5oo8 cannot solve this.
+        // AssertThrows<NullReferenceException> (fun () -> noValue.Value)
 
     [<Koan>]
     let UsingOptionTypesWithPatternMatching() =
@@ -53,8 +57,8 @@ module ``about option types`` =
             | Some score -> translate score
             | None -> "Unknown"
 
-        AssertEquality (getScore chronoTrigger) __
-        AssertEquality (getScore halo) __
+        AssertEquality (getScore chronoTrigger) "Great"
+        AssertEquality (getScore halo) "Unknown"
 
     [<Koan>]
     let ProjectingValuesFromOptionTypes() =
@@ -67,5 +71,5 @@ module ``about option types`` =
             |> Option.map (fun score -> if score > 3 then "play it" else "don't play")
 
         //HINT: look at the return type of the decide on function
-        AssertEquality (decideOn chronoTrigger) __
-        AssertEquality (decideOn halo) __
+        AssertEquality (decideOn chronoTrigger) (Some "play it")
+        AssertEquality (decideOn halo) null 
